@@ -1,0 +1,21 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "migrate": "prisma migrate dev",
+    "seed": "node prisma/seed.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "prisma": "^3.0.0",
+    "mysql": "^2.18.1",
+    "cors": "^2.8.5",
+    "@prisma/client": "^3.0.0",
+    "dotenv": "^17.2.3",
+    "nodemon": "^2.0.7"
+  },
+  "type": "module"   
+}

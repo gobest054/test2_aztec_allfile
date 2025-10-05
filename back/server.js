@@ -1,0 +1,43 @@
+import express from 'express';
+import { PrismaClient } from '@prisma/client';
+import cors from 'cors';
+import dotenv from "dotenv"
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 8000;  
+const DATABASE_URL = process.env.DATABASE_URL;  
+
+
+const corsOptions = {
+  origin: 'http://localhost:5173',  
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
+};
+
+app.use(express.json());
+app.use(cors(corsOptions)); 
+
+const prismaClient = new PrismaClient({
+  datasources: {
+    db: {
+      url: DATABASE_URL,
+    },
+  },
+});
+
+
+app.get('/api/data', async (req, res) => {
+  const data = await prismaClient.tableName.findMany();
+  res.json(data);
+});
+
+app.post('/api/data', async (req,res)=>{
+    
+})
+
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
