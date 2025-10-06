@@ -24,7 +24,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // กรองข้อมูลตามคำค้นหา
+    
     const filtered = data.filter((item) =>
       Object.values(item).some((value) =>
         String(value).toLowerCase().includes(searchTerm.toLowerCase())
@@ -34,7 +34,7 @@ function App() {
   }, [searchTerm, data]);
 
   const handleSearch = (event) => {
-    setSearchTerm(event.target.value); // อัปเดตคำค้นหาที่ผู้ใช้พิมพ์
+    setSearchTerm(event.target.value);
   };
 
   const handleAdd = async (event) => {
@@ -42,7 +42,7 @@ function App() {
     const itemWithIntPTTYPE = { ...newItem, PTTYPE: parseInt(newItem.PTTYPE) };
     try {
       const response = await axios.post('http://localhost:8000/api/data', itemWithIntPTTYPE);
-      setData([...data, response.data]); // เพิ่มข้อมูลที่เพิ่มใหม่เข้าในตาราง
+      setData([...data, response.data]); 
       setNewItem({ INSCL: '', SUBINSCL: '', Rights_Name: '', HOSxP_Rights: '', PTTYPE: '' }); // รีเซ็ตฟอร์ม
     } catch (error) {
       console.error('Error adding data:', error);
@@ -56,7 +56,7 @@ function App() {
       const response = await axios.put(`http://localhost:8000/api/data/${editItem.id}`, editItemWithIntPTTYPE);
       const updatedData = data.map(item => item.id === editItem.id ? response.data : item);
       setData(updatedData);
-      setEditItem(null); // รีเซ็ตการแก้ไข
+      setEditItem(null); 
     } catch (error) {
       console.error('Error updating data:', error);
     }
@@ -76,7 +76,7 @@ function App() {
       <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
         <h1 className="text-3xl font-semibold text-center mb-6">Data List</h1>
 
-        {/* Search Bar */}
+       
         <input
           type="text"
           placeholder="Search..."
@@ -85,7 +85,7 @@ function App() {
           className="w-full p-2 border rounded mb-4"
         />
 
-        {/* Add New Data Form */}
+        
         <h2 className="text-2xl font-semibold mb-4">Add New Data</h2>
         <form onSubmit={handleAdd} className="space-y-4">
           <input
@@ -136,7 +136,7 @@ function App() {
           </button>
         </form>
 
-        {/* Edit Data Form */}
+        
         {editItem && (
           <>
             <h2 className="text-2xl font-semibold mb-4">Edit Data</h2>

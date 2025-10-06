@@ -32,11 +32,3 @@ export const updateData = async (id, data) => {
 
 
 
-// export const deleteData = async (id) => {
-//     try {
-//         const response = await axios.delete(`${API_URL}/${id}`);
-//         return response.data;
-//     } catch (error) {
-//         console.error('Error deleting data:', error);
-//     }
-// };

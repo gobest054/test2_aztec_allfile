@@ -77,7 +77,7 @@ app.post('/api/data', async (req, res) => {
                 PTTYPE,
             },
         });
-        res.status(201).json(newData); // ส่งข้อมูลที่เพิ่มไป
+        res.status(201).json(newData); 
     } catch (error) {
         console.error('Error adding data:', error);
         res.status(500).send('Error adding data');
@@ -99,7 +99,7 @@ app.put('/api/data/:id', async (req, res) => {
         PTTYPE,
       },
     });
-    res.json(updatedData); // ส่งข้อมูลที่อัพเดตแล้ว
+    res.json(updatedData); 
   } catch (error) {
     console.error('Error updating data:', error);
     res.status(500).send('Error updating data');
