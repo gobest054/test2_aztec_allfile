@@ -51,8 +51,9 @@ function App() {
 
   const handleEdit = async (event) => {
     event.preventDefault();
+    const editItemWithIntPTTYPE = { ...editItem, PTTYPE: parseInt(editItem.PTTYPE) };
     try {
-      const response = await axios.put(`http://localhost:8000/api/data/${editItem.id}`, editItem);
+      const response = await axios.put(`http://localhost:8000/api/data/${editItem.id}`, editItemWithIntPTTYPE );
       const updatedData = data.map(item => item.id === editItem.id ? response.data : item);
       setData(updatedData);
       setEditItem(null); // รีเซ็ตการแก้ไข
@@ -128,6 +129,9 @@ function App() {
                 <td>{item.Rights_Name}</td>
                 <td>{item.HOSxP_Rights}</td>
                 <td>{item.PTTYPE}</td>
+                <td>
+                  <button onClick={() => setEditItem(item)}>Edit</button>
+                </td>
               </tr>
             ))}
           </tbody>
