@@ -17,11 +17,11 @@ model TableName {
   id           Int     @id @default(autoincrement())
   INSCL        String?
   SUBINSCL     String?
-  hmain        Int?
+  hmain        Int?    @default(0)
   hsub         String?
   Rights_Name  String?
   PTTYPE       Int?
   HOSxP_Rights String?
 
-  @@map("Rights") 
+  @@map("Rights")
 }

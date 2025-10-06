@@ -65,8 +65,46 @@ app.get('/api/data', async (req, res) => {
 
 app.post('/api/data', async (req, res) => {
 
+    const { INSCL, SUBINSCL, Rights_Name, HOSxP_Rights, PTTYPE } = req.body;
+
+    try {
+        const newData = await prismaClient.tableName.create({
+            data: {
+                INSCL,
+                SUBINSCL,
+                Rights_Name,
+                HOSxP_Rights,
+                PTTYPE,
+            },
+        });
+        res.status(201).json(newData); // ส่งข้อมูลที่เพิ่มไป
+    } catch (error) {
+        console.error('Error adding data:', error);
+        res.status(500).send('Error adding data');
+    }
 })
 
+app.put('/api/data/:id', async (req, res) => {
+  const { id } = req.params;
+  const { INSCL, SUBINSCL, Rights_Name, HOSxP_Rights, PTTYPE } = req.body;
+
+  try {
+    const updatedData = await prismaClient.tableName.update({
+      where: { id: parseInt(id) },
+      data: {
+        INSCL,
+        SUBINSCL,
+        Rights_Name,
+        HOSxP_Rights,
+        PTTYPE,
+      },
+    });
+    res.json(updatedData); // ส่งข้อมูลที่อัพเดตแล้ว
+  } catch (error) {
+    console.error('Error updating data:', error);
+    res.status(500).send('Error updating data');
+  }
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
