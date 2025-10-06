@@ -43,7 +43,7 @@ function App() {
     try {
       const response = await axios.post('http://localhost:8000/api/data', itemWithIntPTTYPE);
       setData([...data, response.data]); 
-      setNewItem({ INSCL: '', SUBINSCL: '', Rights_Name: '', HOSxP_Rights: '', PTTYPE: '' }); // รีเซ็ตฟอร์ม
+      setNewItem({ INSCL: '', SUBINSCL: '', Rights_Name: '', HOSxP_Rights: '', PTTYPE: '' }); 
     } catch (error) {
       console.error('Error adding data:', error);
     }
@@ -191,7 +191,7 @@ function App() {
           </>
         )}
 
-        {/* Data Table */}
+        
         <h2 className="text-2xl font-semibold mt-6 mb-4">Data List</h2>
         {filteredData && filteredData.length > 0 ? (
           <table className="w-full table-auto border-collapse border border-gray-200">
