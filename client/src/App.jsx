@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { getData } from './api'; 
+import { getData } from './api';
 
 function App() {
-  const [data, setData] = useState([]);  
+  const [data, setData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await getData();
         if (result) {
-          setData(result); 
+          setData(result);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -18,11 +20,32 @@ function App() {
     fetchData();
   }, []);
 
- 
+  useEffect(() => {
+    // กรองข้อมูลตามคำค้นหา
+    const filtered = data.filter((item) =>
+      Object.values(item).some((value) =>
+        String(value).toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+    setFilteredData(filtered);
+  }, [searchTerm, data]);
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value); // อัปเดตคำค้นหาที่ผู้ใช้พิมพ์
+  };
+
   return (
-     <div>
+    <div>
       <h1>Data List</h1>
-      {data && data.length > 0 ? (
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+
+      <h1>Data List</h1>
+      {filteredData && filteredData.length > 0 ? (
         <table border="1">
           <thead>
             <tr>
@@ -36,7 +59,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            {filteredData.map((item) => (
               <tr key={item.id}>
                 <td>{item.INSCL}</td>
                 <td>{item.SUBINSCL}</td>
